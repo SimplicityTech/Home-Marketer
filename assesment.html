@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <title>Affordability assesment</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="index" href="index.html">
+        <link rel="index" href="status.html">
+        <script type="module" src="assesment.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <script type="module" src="retrieveDetails.js"></script>
+</head>
+<body>
+<!---Assesment-->
+<form id="assesmentForm">
+    <div class="assesment-text">
+        <span class="title">Affordability assesment</span>
+        <P>Please provide accurate information as we going to use this information when we negotiate on your behalf with the seller.</P>
+        
+        <h1>Employment and Income Details:</h1>
+        <P>What is your current employment status? (e.g., employed, self-employed, unemployed, retired)
+            <input type="text" id="employment">
+        </P>
+        <p>What is your annual income before taxes?
+            <input type="number" id="income">
+        </p>
+        <p>Do you have any additional sources of income? If yes, please specify.
+            <input type="text" id="additional">
+            <input type="text" id="incoExplanation">
+        </p>
+        <h1>Current Financial Situation:</h1>
+        <P>What is your monthly household expenditure?
+            <input type="number" id="HouseExpe">
+        </P>
+        <p>Do you have any existing debts or financial obligations? If yes, please list them along with the monthly payments.
+            <input type="text" id="debtList">
+        </p>
+        <p>What is your current credit score or credit rating?
+            <input type="number" id="creditScore">
+        </p>
+        <h1>Property Preferences:</h1>
+        <P>What type of property are you interested in? (e.g., house, apartment, townhouse)
+            <input type="text" id="houseType">
+        </P>
+        <p>What is your preferred location for this property? (Country & city)
+            <input type="text" id="preferdLocation">
+        </p>
+        <p>What is the maximum purchase price you are considering?
+            <input type="number" id="maximumPrice">
+        </p>
+        <h1>Future Financial Plans:</h1>
+        <P>Do you expect any significant changes in your income or expenditures in the near future?
+            <input type="text" id="futurePlans">
+        </P>
+        <p>Are you planning for any major life events that could impact your financial situation? (e.g., marriage, children, retirement)
+            <input type="text" id="PlannedEvent">
+        </p>
+        <h1>Additional Information:</h1>
+        <P>Is there any other information that you think is relevant to your affordability assessment?
+        <input type="text" id="Additional info1">
+        <input type="text" id="Additional info2">
+        </P>
+        <div>
+            <input type="submit"  value="submit">
+        </div>
+    </div>
+    <div class="footerS">                
+        <ul>
+            <li><a href="personal.html"><img src="account_circle_FILL0.png" alt="icon" >Personal details</a></li>
+            <li><a href="status.html"><img src="monitoring_FILL0.png" alt="icon">Status</a></li>
+            <li><a href="house.html"><img src="image_FILL0.png" alt="icon">House</a></li>
+            <li><a href="index.html"><img src="logout_FILL0.png" alt="icon">Log-out</a></li> 
+        </ul>
+        </div> 
+    </form>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.12.2/firebase.js"></script>
+<script src="assesment.js"></script>
+
+
+
+</body>
+</html>

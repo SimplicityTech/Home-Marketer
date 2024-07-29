@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <li rel="index" href="account.html"></li>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="Firebaseauth.js"></script>
+
+    <style>
+        /* Add your CSS styles here */
+        body {
+          font-family: Arial, sans-serif;
+        }
+        #registrationForm{
+          margin-top: 5%;
+        }
+        .form-container, .account-details {
+          width: 300px;
+          margin: auto;
+          padding: 20px;
+          display: none; /* Hide all sections by default */
+        }
+        .visible {
+          display: block; /* Show section when needed */
+        }
+        input[type="text"], input[type="email"], input[type="password"] {
+      width: 100%;
+          padding: 10px;
+          margin: 10px 0;
+          border: 1px solid #ddd;
+          box-sizing: border-box;
+        }
+        input[type="submit"], .logout-button {
+          width: 100%;
+          padding: 10px;
+          background-color: #009688;
+          color: white;
+          border: none;
+          cursor: pointer;
+        }
+        input[type="submit"]:hover, .logout-button:hover {
+          background-color: midnightblue;
+      }
+      </style>
+</head>
+<Body>
+
+<!--Registration--->
+    <header>
+      <img src="home-marketer2.png" alt="logo" class="logo"><br>
+    </header>
+    <form id="registrationForm">
+      <div class="form signup">
+        <span class="title">REGISTRATION</span>
+    
+        <div id="SignUpMessage" class="messageDiv" style="display: none;">Account created successfully</div>
+    
+        <div class="input-field">
+          <input type="text" placeholder="Full name" id="fullname" required>
+          <i class="uil uil-user icon"></i>
+        </div>
+        <div class="input-field">
+          <input type="email" placeholder="Email" id="Email" required>
+          <i class="uil uil-envelop icon"></i>
+        </div>
+        <div class="input-field">
+          <input type="tel" placeholder="Phone number" id="phoneNumber" required>
+          <i class="uil uil-phone icon"></i>
+        </div>
+        <div class="input-field">
+          <input type="password" placeholder="Create password" id="CreatePassword" required>
+          <i class="uil uil-lock icon"></i>
+          <i class="uil uil-eye-slash showHidePw"></i>
+        </div> 
+        <div class="input-field">
+          <input type="password" placeholder="Confirm password" id="confirmPassword" required>
+          <i class="uil uil-lock icon"></i>
+          <i class="uil uil-eye-slash showHidePw"></i>
+        </div>
+        <div class="input-field button">
+          <input type="submit" value="Submit">
+        </div>
+      </div>
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.12.2/firebase.js"></script>
+    <script type="module" src="Firebaseauth.js"></script>
+
+    
+    
+
+
+</Body>
+</html>

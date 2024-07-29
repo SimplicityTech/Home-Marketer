@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <title>Login</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="index" href="index.html">
+        <link rel="index" href="registration.html"></li>
+        <link rel="index" href="account.html"></li>
+        <link rel="stylesheet" href="style.css">
+        <script type="module" src="Firebaseauth.js"></script>
+</head>
+<header>
+    <img src="home-marketer2.png" class="logo">
+</header>
+<body>
+<!---Login-->
+<section id="login">
+    
+    <br>
+<div class="container">
+    <div class="form">
+        <div class="form login">
+            <span class="title">Login</span>
+
+                <div id="SignInMessage" class="messageDiv" style="display: none;"></div>
+                <div class="input-field">
+                   <input type="email" id="email" placeholder="Email" required>
+                   <i class="uil uil-envelop icon"></i>
+                   
+                   <input type="password" id="password" placeholder="Password" required>
+                   <i class="uil uil-lock icon"></i>
+                   <i class="uil uil-eye-slash showHidePw"></i>
+                   
+                </div>
+                <div class="checkbox-text">
+                <div class="checkbox-content">
+                     <input type="checkbox" id="logcheck">
+                     <label for="logcheck" class="text">Remember me</label>
+                </div>
+
+                <a href="#" class="text">Forgot password?</a>
+                </div>
+                <div class="input-field button">
+
+                <input type="submit"  id="loginButton" value="Login">
+
+                </div>
+                </form>
+                <div class="login-signup">
+                    <span class="text">Not a member?</span>
+                    <a href="registration.html" class="signupButton">Signup now</a>
+                </div>
+                   
+                </div>
+        </div>
+    </div>
+</div>
+</section>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.12.2/firebase.js"></script>
+    <script src="Firebaseauth.js"></script>
+    
+<script type="module">
+
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyABbx6yhhAN0DAhx7FjPRPU-vKyRJUWtR8",
+    authDomain: "registration-homemarketer.firebaseapp.com",
+    projectId: "registration-homemarketer",
+    storageBucket: "registration-homemarketer.appspot.com",
+    messagingSenderId: "764247926799",
+    appId: "1:764247926799:web:838d65e930acc8ae849b7a"
+  };
+
+  // ... Firebase initialization code ...
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth();
+  
+  document.getElementById('loginButton').addEventListener('click', (event) => {
+    event.preventDefault(); // Prevent form submission
+    login();
+  });
+  
+  function login() {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+  
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        // Redirect to account page
+        window.location.assign("account.html");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // Display error message on the webpage
+        document.getElementById('SignInMessage').style.display = 'block';
+        document.getElementById('SignInMessage').textContent = errorMessage;
+      });
+  }
+  
+  
+
+</script>
+
+</body>
+</html>
