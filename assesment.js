@@ -6,7 +6,7 @@ import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyABbx6yhhAN0DAhx7FjPRPU-vKyRJUWtR8",
-  authDomain: "registration-homemarketer.firebaseapp.com",
+  authDomain: "http://www.homemarketer.co.za/",
   projectId: "registration-homemarketer",
   storageBucket: "registration-homemarketer.appspot.com",
   messagingSenderId: "764247926799",
