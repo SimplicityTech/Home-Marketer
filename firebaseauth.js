@@ -6,7 +6,8 @@ import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // Your web app's Firebase configuration
-const firebaseConfig = {
+const uiConfig = {
+  signInFlow: 'popup',
   apiKey: "AIzaSyABbx6yhhAN0DAhx7FjPRPU-vKyRJUWtR8",
   authDomain: "http://www.homemarketer.co.za__/auth/handler",
   projectId: "registration-homemarketer",
