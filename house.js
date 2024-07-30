@@ -1,3 +1,5 @@
+import { GithubAuthProvider } from 'firebase/auth';
+const provider = new GithubAuthProvider();
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
