@@ -9,7 +9,7 @@ import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10
 const uiConfig = {
   signInFlow: 'popup',
   apiKey: "AIzaSyABbx6yhhAN0DAhx7FjPRPU-vKyRJUWtR8",
-  authDomain: "http://www.homemarketer.co.za__/auth/handler",
+  authDomain: "https://registration-homemarketer.firebaseapp.com/__/auth/handler",
   projectId: "registration-homemarketer",
   storageBucket: "registration-homemarketer.appspot.com",
   messagingSenderId: "764247926799",
