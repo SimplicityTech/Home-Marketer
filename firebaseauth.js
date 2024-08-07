@@ -1,12 +1,10 @@
 // Import the functions you need from the SDKs you need
-import { GithubAuthProvider } from 'firebase/auth';
-const provider = new GithubAuthProvider();
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GithubAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // Your web app's Firebase configuration
-const uiConfig = {
+const uiConfig = {  
   signInFlow: 'popup',
   apiKey: "AIzaSyABbx6yhhAN0DAhx7FjPRPU-vKyRJUWtR8",
   authDomain: "https://registration-homemarketer.firebaseapp.com/__/auth/handler",
