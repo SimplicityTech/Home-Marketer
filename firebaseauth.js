@@ -31,6 +31,8 @@ async function submitForm(e) {
   const createPassword = getElementVal('CreatePassword');
   const confirmPassword = getElementVal('confirmPassword');
 
+  console.log("Form Data:", { fullName, emailid, phoneNumber, createPassword, confirmPassword });
+
   if (createPassword !== confirmPassword) {
     alert("Passwords do not match.");
     return;
@@ -40,12 +42,16 @@ async function submitForm(e) {
     const userCredential = await createUserWithEmailAndPassword(auth, emailid, createPassword);
     const user = userCredential.user;
 
+    console.log("User created:", user);
+
     await setDoc(doc(db, "users", user.uid), {
       name: fullName,
       email: emailid,
       cell: phoneNumber,
     });
-  
+
+    console.log("User data stored in Firestore");
+
     // Redirect to account page
     window.location.href = 'account.html';
   } catch (error) {
@@ -53,6 +59,7 @@ async function submitForm(e) {
     alert("Error signing up: " + error.message);
   }
 }
+
 
 function getElementVal(id) {
   return document.getElementById(id).value;
