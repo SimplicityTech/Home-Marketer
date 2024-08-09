@@ -4,15 +4,13 @@ import { getAuth, createUserWithEmailAndPassword, signUpWithPopup, signInWithPop
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // Your web app's Firebase configuration
-const uiConfig = {  
-  signInFlow: 'popup',
+const firebaseConfig = {  
   apiKey: "AIzaSyABbx6yhhAN0DAhx7FjPRPU-vKyRJUWtR8",
-  authDomain: "https://www.homemarketer.co.za/__/auth/handler",
+  authDomain: "www.homemarketer.co.za",
   projectId: "registration-homemarketer",
   storageBucket: "registration-homemarketer.appspot.com",
   messagingSenderId: "764247926799",
   appId: "1:764247926799:web:838d65e930acc8ae849b7a"
-  // ... your config
 };
 
 // Initialize Firebase
@@ -39,25 +37,24 @@ async function submitForm(e) {
   }
 
   try {
-    const userCredential = await createUserWithEmailAndPassword(auth, emailid, createPassword);
-    const user = userCredential.user;
+  const userCredential = await createUserWithEmailAndPassword(auth, emailid, createPassword);
+  const user = userCredential.user;
+  console.log("User created:", user);
 
-    console.log("User created:", user);
+  // Save user data to Firestore
+  await setDoc(doc(db, "users", user.uid), {
+    fullName,
+    emailid,
+    phoneNumber
+  });
 
-    await setDoc(doc(db, "users", user.uid), {
-      name: fullName,
-      email: emailid,
-      cell: phoneNumber,
-    });
-
-    console.log("User data stored in Firestore");
-
+  alert("User registered successfully!");
+} catch (error) {
+  console.error("Error creating user:", error);
+  alert("Error creating user: " + error.message);
+}  
     // Redirect to account page
     window.location.href = 'account.html';
-  } catch (error) {
-    console.error("Error signing up:", error.message);
-    alert("Error signing up: " + error.message);
-  }
 }
 
 
