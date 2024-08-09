@@ -92,15 +92,20 @@
       .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
+              alert('Login successful!');
         // Redirect to account page
         window.location.assign("account.html");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+              
         // Display error message on the webpage
         document.getElementById('SignInMessage').style.display = 'block';
         document.getElementById('SignInMessage').textContent = errorMessage;
+              errorMessage.textContent = 'Incorrect email or password. Please try again.';
+              errorMessage.style.display = 'block';
+              
       });
   }
   
