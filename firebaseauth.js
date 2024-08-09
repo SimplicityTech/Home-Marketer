@@ -37,27 +37,24 @@ async function submitForm(e) {
   }
 
   try {
-  const userCredential = await createUserWithEmailAndPassword(auth, emailid, createPassword);
-  const user = userCredential.user;
-  console.log("User created:", user);
+    const userCredential = await createUserWithEmailAndPassword(auth, emailid, createPassword);
+    const user = userCredential.user;
+    console.log("User created:", user);
 
-  // Save user data to Firestore
-  await setDoc(doc(db, "users", user.uid), {
-    fullName,
-    emailid,
-    phoneNumber
-  });
+    // Save user data to Firestore
+    await setDoc(doc(db, "users", user.uid), {
+      fullName,
+      emailid,
+      phoneNumber
+    });
 
-  alert("User registered successfully!");
-} catch (error) {
-  console.error("Error creating user:", error);
-  alert("Error creating user: " + error.message);
-}  
+    alert("User registered successfully!");
+
     // Redirect to account page
     window.location.href = 'account.html';
+  } catch (error) {
+    console.error("Error creating user:", error);
+    alert("Error creating user: " + error.message);
+  }
 }
 
-
-function getElementVal(id) {
-  return document.getElementById(id).value;
-}
