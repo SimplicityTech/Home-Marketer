@@ -48,7 +48,7 @@ async function savePersonalDetails() {
     const userDocRef = doc(db, "users", user.uid);
     try {
       await setDoc(userDocRef, { personalDetails: userDetails }, { merge: true });
-      console.log("Personal details saved successfully.");
+      alart("Personal details sent to Home Marketer team!!!.");
       document.getElementById('confirmationMessage').style.display = 'block';
     } catch (error) {
       console.error("Error saving personal details:", error);
