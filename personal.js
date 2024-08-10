@@ -48,7 +48,7 @@ async function savePersonalDetails() {
     const userDocRef = doc(db, "users", user.uid);
     try {
       await setDoc(userDocRef, { personalDetails: userDetails }, { merge: true });
-      alart("Personal details sent to Home Marketer team!!!.");
+      console.log("Personal details saved successfully.");
       document.getElementById('confirmationMessage').style.display = 'block';
     } catch (error) {
       console.error("Error saving personal details:", error);
@@ -62,5 +62,14 @@ async function savePersonalDetails() {
 // Event listener for form submission
 document.getElementById('personal').addEventListener('submit', (e) => {
   e.preventDefault();
-  savePersonalDetails();
+  console.log("Form submitted");
+  savePersonalDetails().then(() => {
+    console.log("Save function completed");
+  }).catch(error => {
+    console.error("Error in save function:", error);
+  });
+});
+
+
+    
 });
