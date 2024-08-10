@@ -63,6 +63,10 @@
         messagingSenderId: "764247926799",
         appId: "1:764247926799:web:838d65e930acc8ae849b7a"
         };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        
         // Function to save personal details to Firestore
         async function savePersonalDetails() {
             const userDetails = getFormValues();
