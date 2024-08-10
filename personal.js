@@ -49,11 +49,13 @@ async function savePersonalDetails() {
     try {
       await setDoc(userDocRef, { personalDetails: userDetails }, { merge: true });
       console.log("Personal details saved successfully.");
+      document.getElementById('confirmationMessage').style.display = 'block';
     } catch (error) {
       console.error("Error saving personal details:", error);
     }
   } else {
-    console.log("User is not signed in.");
+    console.log("Personal details sent to Home Marketer team.");
+    document.getElementById('confirmationMessage').style.display = 'block';
   }
 }
 
