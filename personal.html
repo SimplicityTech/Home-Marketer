@@ -47,10 +47,10 @@
         </div>
     </form>
     <div id="confirmationMessage">Your data has been sent to Home Marketer!</div>
-    <script>
+    <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
         import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
         // Your web app's Firebase configuration
@@ -92,6 +92,7 @@
             if (user) {
                 const userDocRef = doc(db, "users", user.uid);
                 try {
+                    console.log("Attempting to save user details:", userDetails);
                     await setDoc(userDocRef, { personalDetails: userDetails }, { merge: true });
                     console.log("Personal details saved successfully.");
                     showConfirmationMessage();
@@ -99,7 +100,7 @@
                     console.error("Error saving personal details:", error);
                 }
             } else {
-                console.log("Personal details sent to Home Marketer team.");
+                console.log("No authenticated user. Personal details sent to Home Marketer team.");
                 showConfirmationMessage();
             }
         }
@@ -124,4 +125,5 @@
     </script>
 </body>
 </html>
+
 
