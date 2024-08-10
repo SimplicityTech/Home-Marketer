@@ -727,3 +727,8 @@ header{
 #registrationForm{
     margin-top: 40px;
 }
+#confirmationMessage {
+  display: none;
+  color: green;
+  font-weight: bold;
+}
