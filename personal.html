@@ -48,7 +48,6 @@
     </form>
     <div id="confirmationMessage">Your data has been sent to Home Marketer!</div>
     <script>
-
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -56,18 +55,35 @@
 
         // Your web app's Firebase configuration
         const firebaseConfig = {  
-        apiKey: "AIzaSyABbx6yhhAN0DAhx7FjPRPU-vKyRJUWtR8",
-        authDomain: "www.homemarketer.co.za",
-        projectId: "registration-homemarketer",
-        storageBucket: "registration-homemarketer.appspot.com",
-        messagingSenderId: "764247926799",
-        appId: "1:764247926799:web:838d65e930acc8ae849b7a"
+            apiKey: "AIzaSyABbx6yhhAN0DAhx7FjPRPU-vKyRJUWtR8",
+            authDomain: "www.homemarketer.co.za",
+            projectId: "registration-homemarketer",
+            storageBucket: "registration-homemarketer.appspot.com",
+            messagingSenderId: "764247926799",
+            appId: "1:764247926799:web:838d65e930acc8ae849b7a"
         };
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        document.getElementById('personal').addEventListener('submit', submitForm);
+        // Function to get form values
+        function getFormValues() {
+            return {
+                fullName: document.getElementById('fullName').value,
+                address: {
+                    streetNumber: document.getElementById('streetNumber').value,
+                    streetName: document.getElementById('streetName').value,
+                    suburb: document.getElementById('suburb').value,
+                    city: document.getElementById('city').value,
+                    province: document.getElementById('province').value,
+                    country: document.getElementById('country').value
+                },
+                phoneNumber: document.getElementById('phoneNumber').value,
+                alternativeNumber: document.getElementById('alternativeNumber').value,
+                email: document.getElementById('email').value
+            };
+        }
+
         // Function to save personal details to Firestore
         async function savePersonalDetails() {
             const userDetails = getFormValues();
@@ -108,3 +124,4 @@
     </script>
 </body>
 </html>
+
