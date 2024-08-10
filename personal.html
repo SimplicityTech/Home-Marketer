@@ -41,6 +41,39 @@
             </div>
         </form>
             <div id="confirmationMessage" style="display:none;">Your data has been sent to Home Marketer!</div>
+    <script>
+        // Function to save personal details to Firestore
+async function savePersonalDetails() {
+  const userDetails = getFormValues();
+  const user = auth.currentUser;
+
+  if (user) {
+    const userDocRef = doc(db, "users", user.uid);
+    try {
+      await setDoc(userDocRef, { personalDetails: userDetails }, { merge: true });
+      console.log("Personal details saved successfully.");
+      document.getElementById('confirmationMessage').style.display = 'block';
+    } catch (error) {
+      console.error("Error saving personal details:", error);
+    }
+  } else {
+    console.log("Personal details sent to Home Marketer team.");
+    document.getElementById('confirmationMessage').style.display = 'block';
+  }
+}
+
+// Event listener for form submission
+document.getElementById('personal').addEventListener('submit', (e) => {
+  e.preventDefault();
+  console.log("Form submitted");
+  savePersonalDetails().then(() => {
+    console.log("Save function completed");
+  }).catch(error => {
+    console.error("Error in save function:", error);
+  });
+});
+
+    </script>
    
       
 </body>
