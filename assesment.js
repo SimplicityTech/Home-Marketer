@@ -56,3 +56,35 @@ onAuthStateChanged(auth, (user) => {
     console.log("User signed out");
   }
 });
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log("User signed in:", user.uid);
+  } else {
+    console.log("User signed out");
+  }
+});
+// Function to save affordability assessment to Firestore
+async function saveAffordabilityAssessment() {
+  const user = auth.currentUser;
+  const assessmentDetails = getAssessmentFormValues();
+
+  if (user) {
+    const userDocRef = doc(db, "users", user.uid);
+    try {
+      console.log("Saving assessment details for user:", user.uid);
+      await setDoc(userDocRef, { affordabilityAssessment: assessmentDetails }, { merge: true });
+      console.log("Affordability assessment saved successfully.");
+    } catch (error) {
+      console.error("Error saving affordability assessment:", error);
+    }
+  } else {
+    console.log("User is not signed in.");
+  }
+}
+
+// Event listener for form submission
+document.getElementById('assesmentForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  console.log("Form submitted");
+  saveAffordabilityAssessment();
+});
