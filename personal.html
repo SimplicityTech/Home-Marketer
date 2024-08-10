@@ -66,7 +66,8 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        
+
+        document.getElementById('personal').addEventListener('submit', submitForm);
         // Function to save personal details to Firestore
         async function savePersonalDetails() {
             const userDetails = getFormValues();
