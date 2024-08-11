@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="index" href="index.html">
     <link rel="index" href="status.html">
-    <script type="module" src="assesment.js"></script>
-    <script type="module" src="firebaseauth.js"></script>
     <link rel="stylesheet" href="style.css">
-    <script type="module" src="retrieveDetails.js"></script>
 </head>
 <body>
 <!---Assessment-->
@@ -74,90 +71,86 @@
     </div> 
 </form>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.12.2/firebase.js"></script>
-<script src="assesment.js"></script>
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    <script>
-               // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    // Your web app's Firebase configuration
+    const firebaseConfig = {  
+        apiKey: "AIzaSyABbx6yhhAN0DAhx7FjPRPU-vKyRJUWtR8",
+        authDomain: "www.homemarketer.co.za",
+        projectId: "registration-homemarketer",
+        storageBucket: "registration-homemarketer.appspot.com",
+        messagingSenderId: "764247926799",
+        appId: "1:764247926799:web:838d65e930acc8ae849b7a"
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
-        // Your web app's Firebase configuration
-        const firebaseConfig = {  
-            apiKey: "AIzaSyABbx6yhhAN0DAhx7FjPRPU-vKyRJUWtR8",
-            authDomain: "www.homemarketer.co.za",
-            projectId: "registration-homemarketer",
-            storageBucket: "registration-homemarketer.appspot.com",
-            messagingSenderId: "764247926799",
-            appId: "1:764247926799:web:838d65e930acc8ae849b7a"
+    // Function to get form values
+    function getFormValues() {
+        return {
+            employmentStatus: document.getElementById('employment').value,
+            annualIncome: document.getElementById('income').value,
+            additionalIncome: document.getElementById('additional').value,
+            additionalIncomeExplanation: document.getElementById('incoExplanation').value,
+            monthlyExpenditure: document.getElementById('HouseExpe').value,
+            debts: document.getElementById('debtList').value,
+            creditScore: document.getElementById('creditScore').value,
+            propertyType: document.getElementById('houseType').value,
+            preferredLocation: document.getElementById('preferdLocation').value,
+            maximumPurchasePrice: document.getElementById('maximumPrice').value,
+            futureIncomeChanges: document.getElementById('futurePlans').value,
+            majorLifeEvents: document.getElementById('PlannedEvent').value,
+            additionalInfo1: document.getElementById('additionalInfo1').value,
+            additionalInfo2: document.getElementById('additionalInfo2').value,
+            fullName: document.getElementById('fullName').value
         };
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+    }
 
-        // Function to get form values
-        function getFormValues() {
-            return {
-                assesment:{
-                    employmentStatus: document.getElementById('employment').value,
-                    annualIncome: document.getElementById('income').value,
-                    additionalIncome: document.getElementById('additional').value,
-                    additionalIncomeExplanation: document.getElementById('incoExplanation').value,
-                    monthlyExpenditure: document.getElementById('HouseExpe').value,
-                    debts: document.getElementById('debtList').value,
-                    creditScore: document.getElementById('creditScore').value,
-                    propertyType: document.getElementById('houseType').value,
-                    preferredLocation: document.getElementById('preferdLocation').value,
-                    maximumPurchasePrice: document.getElementById('maximumPrice').value,
-                    futureIncomeChanges: document.getElementById('futurePlans').value,
-                    majorLifeEvents: document.getElementById('PlannedEvent').value,
-                    additionalInfo: [
-                    document.getElementById('additionalInfo1').value,
-                    document.getElementById('additionalInfo2').value,
-                    fullName: document.getElementById('fullName').value,
-              }:           
-        }
+    // Function to save assessment details to Firestore
+    async function saveAssessment() {
+        const userDetails = getFormValues();
+        const user = auth.currentUser;
 
-        // Function to save personal details to Firestore
-        async function saveAssesment() {
-            const userDetails = getFormValues();
-            const user = auth.currentUser;
-
-            if (user) {
-                const userDocRef = doc(db, "users", user.uid);
-                try {
-                    console.log("Attempting to save user details:", userDetails);
-                    await setDoc(userDocRef, { assesment: userDetails }, { merge: true });
-                    console.log("Assesment answers saved and successfully.");
-                    showConfirmationMessage();
-                } catch (error) {
-                    console.error("Error saving personal details:", error);
-                }
-            } else {
-                console.log("No authenticated user. Personal details sent to Home Marketer team.");
+        if (user) {
+            const userDocRef = doc(db, "users", user.uid);
+            try {
+                console.log("Attempting to save user details:", userDetails);
+                await setDoc(userDocRef, { assessment: userDetails }, { merge: true });
+                console.log("Assessment answers saved successfully.");
                 showConfirmationMessage();
+            } catch (error) {
+                console.error("Error saving assessment details:", error);
             }
+        } else {
+            console.log("No authenticated user. Personal details sent to Home Marketer team.");
+            showConfirmationMessage();
         }
+    }
 
-        // Function to show confirmation message
-        function showConfirmationMessage() {
-            const messageElement = document.getElementById('confirmationMessage');
-            messageElement.style.display = 'block';
-            console.log("Confirmation message displayed.");
-        }
+    // Function to show confirmation message
+    function showConfirmationMessage() {
+        const messageElement = document.getElementById('confirmationMessage');
+        messageElement.style.display = 'block';
+        console.log("Confirmation message displayed.");
+    }
 
-        // Event listener for form submission
-        document.getElementById('personal').addEventListener('submit', (e) => {
-            e.preventDefault();
-            console.log("Form submitted");
-            saveAssesment().then(() => {
-                console.log("Save function completed");
-            }).catch(error => {
-                console.error("Error in save function:", error);
-            });
+    // Event listener for form submission
+    document.getElementById('assesmentForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        console.log("Form submitted");
+        saveAssessment().then(() => {
+            console.log("Save function completed");
+        }).catch(error => {
+            console.error("Error in save function:", error);
         });
-    </script>
-    </script>
+    });
+</script>
+
 </body>
 </html>
+
