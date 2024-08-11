@@ -72,12 +72,10 @@
 </form>
 
 <script type="module">
-    // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
     import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    // Your web app's Firebase configuration
     const firebaseConfig = {  
         apiKey: "AIzaSyABbx6yhhAN0DAhx7FjPRPU-vKyRJUWtR8",
         authDomain: "www.homemarketer.co.za",
@@ -90,28 +88,21 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // Function to get form values
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            console.log("User is authenticated:", user);
+        } else {
+            console.log("No user is authenticated.");
+        }
+    });
+
     function getFormValues() {
         return {
             employmentStatus: document.getElementById('employment').value,
-            annualIncome: document.getElementById('income').value,
-            additionalIncome: document.getElementById('additional').value,
-            additionalIncomeExplanation: document.getElementById('incoExplanation').value,
-            monthlyExpenditure: document.getElementById('HouseExpe').value,
-            debts: document.getElementById('debtList').value,
-            creditScore: document.getElementById('creditScore').value,
-            propertyType: document.getElementById('houseType').value,
-            preferredLocation: document.getElementById('preferdLocation').value,
-            maximumPurchasePrice: document.getElementById('maximumPrice').value,
-            futureIncomeChanges: document.getElementById('futurePlans').value,
-            majorLifeEvents: document.getElementById('PlannedEvent').value,
-            additionalInfo1: document.getElementById('additionalInfo1').value,
-            additionalInfo2: document.getElementById('additionalInfo2').value,
-            fullName: document.getElementById('fullName').value
+            annualIncome: document.getElementById('income').value
         };
     }
 
-    // Function to save assessment details to Firestore
     async function saveAssessment() {
         const userDetails = getFormValues();
         const user = auth.currentUser;
@@ -122,27 +113,16 @@
                 console.log("Attempting to save user details:", userDetails);
                 await setDoc(userDocRef, { assessment: userDetails }, { merge: true });
                 console.log("Assessment answers saved successfully.");
-                showConfirmationMessage();
             } catch (error) {
                 console.error("Error saving assessment details:", error);
             }
         } else {
-            console.log("No authenticated user. Personal details sent to Home Marketer team.");
-            showConfirmationMessage();
+            console.log("No authenticated user.");
         }
     }
 
-    // Function to show confirmation message
-    function showConfirmationMessage() {
-        const messageElement = document.getElementById('confirmationMessage');
-        messageElement.style.display = 'block';
-        console.log("Confirmation message displayed.");
-    }
-
-    // Event listener for form submission
     document.getElementById('assesmentForm').addEventListener('submit', (e) => {
         e.preventDefault();
-        console.log("Form submitted");
         saveAssessment().then(() => {
             console.log("Save function completed");
         }).catch(error => {
@@ -153,4 +133,3 @@
 
 </body>
 </html>
-
