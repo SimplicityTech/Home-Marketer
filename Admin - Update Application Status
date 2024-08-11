@@ -9,11 +9,9 @@
     <h1>Update Application Status</h1>
     <form id="updateStatusForm">
         <input type="text" id="userId" placeholder="User ID" required>
-        <select id="newStatus" required>
-            <option value="pending">Pending</option>
-            <option value="approved">Approved</option>
-            <option value="declined">Declined</option>
-        </select>
+        <input type="text" id="houseSearch" placeholder="House Search Status">
+        <input type="text" id="bond" placeholder="Bond Status">
+        <input type="text" id="building" placeholder="Building Status">
         <button type="submit">Update Status</button>
     </form>
     <script type="module">
@@ -34,9 +32,13 @@
         document.getElementById('updateStatusForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const userId = document.getElementById('userId').value;
-            const newStatus = document.getElementById('newStatus').value;
+            const newStatus = {
+                houseSearch: document.getElementById('houseSearch').value,
+                bond: document.getElementById('bond').value,
+                building: document.getElementById('building').value
+            };
             try {
-                await updateDoc(doc(db, "users", userId), { applicationStatus: newStatus });
+                await updateDoc(doc(db, "users", userId), newStatus);
                 alert("Application status updated successfully.");
             } catch (error) {
                 console.error("Error updating application status:", error);
@@ -46,3 +48,4 @@
     </script>
 </body>
 </html>
+
