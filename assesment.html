@@ -99,19 +99,24 @@
         // Function to get form values
         function getFormValues() {
             return {
-                fullName: document.getElementById('fullName').value,
-                address: {
-                    streetNumber: document.getElementById('streetNumber').value,
-                    streetName: document.getElementById('streetName').value,
-                    suburb: document.getElementById('suburb').value,
-                    city: document.getElementById('city').value,
-                    province: document.getElementById('province').value,
-                    country: document.getElementById('country').value
-                },
-                phoneNumber: document.getElementById('phoneNumber').value,
-                alternativeNumber: document.getElementById('alternativeNumber').value,
-                email: document.getElementById('email').value
-            };
+                assesment:{
+                    employmentStatus: document.getElementById('employment').value,
+                    annualIncome: document.getElementById('income').value,
+                    additionalIncome: document.getElementById('additional').value,
+                    additionalIncomeExplanation: document.getElementById('incoExplanation').value,
+                    monthlyExpenditure: document.getElementById('HouseExpe').value,
+                    debts: document.getElementById('debtList').value,
+                    creditScore: document.getElementById('creditScore').value,
+                    propertyType: document.getElementById('houseType').value,
+                    preferredLocation: document.getElementById('preferdLocation').value,
+                    maximumPurchasePrice: document.getElementById('maximumPrice').value,
+                    futureIncomeChanges: document.getElementById('futurePlans').value,
+                    majorLifeEvents: document.getElementById('PlannedEvent').value,
+                    additionalInfo: [
+                    document.getElementById('additionalInfo1').value,
+                    document.getElementById('additionalInfo2').value,
+                    fullName: document.getElementById('fullName').value,
+              }:           
         }
 
         // Function to save personal details to Firestore
