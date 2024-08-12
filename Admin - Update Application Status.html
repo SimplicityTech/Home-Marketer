@@ -4,18 +4,55 @@
     <title>Admin - Update Application Status</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input, select, button {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1>Update Application Status</h1>
-    <form id="updateStatusForm">
-        <input type="text" id="userId" placeholder="User ID" required>
-        <select id="newStatus" required>
-            <option value="pending">Pending</option>
-            <option value="approved">Approved</option>
-            <option value="declined">Declined</option>
-        </select>
-        <button type="submit">Update Status</button>
-    </form>
+    <div class="container">
+        <h1>Update Application Status</h1>
+        <form id="updateStatusForm">
+            <input type="text" id="userId" placeholder="User ID" required>
+            <input type="text" id="houseSearch" placeholder="House Search Status">
+            <input type="text" id="bond" placeholder="Bond Status">
+            <input type="text" id="building" placeholder="Building Status">
+            <button type="submit">Update Status</button>
+        </form>
+    </div>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getFirestore, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -31,12 +68,26 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        async function updateApplicationStatus(userId, newStatus) {
+            const userDocRef = doc(db, "users", userId);
+            try {
+                await updateDoc(userDocRef, newStatus);
+                console.log("Application status updated successfully.");
+            } catch (error) {
+                console.error("Error updating application status:", error);
+            }
+        }
+
         document.getElementById('updateStatusForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const userId = document.getElementById('userId').value;
-            const newStatus = document.getElementById('newStatus').value;
+            const newStatus = {
+                houseSearch: document.getElementById('houseSearch').value,
+                bond: document.getElementById('bond').value,
+                building: document.getElementById('building').value
+            };
             try {
-                await updateDoc(doc(db, "users", userId), { applicationStatus: newStatus });
+                await updateApplicationStatus(userId, newStatus);
                 alert("Application status updated successfully.");
             } catch (error) {
                 console.error("Error updating application status:", error);
@@ -44,5 +95,52 @@
             }
         });
     </script>
+
+    <select id="houseSearch">
+    <option value="pending">Pending</option>
+    <option value="approved">Approved</option>
+    <option value="declined">Declined</option>
+</select>
+<select id="bond">
+    <option value="pending">Pending</option>
+    <option value="approved">Approved</option>
+    <option value="declined">Declined</option>
+</select>
+<select id="building">
+    <option value="pending">Pending</option>
+    <option value="approved">Approved</option>
+    <option value="declined">Declined</option>
+</select>
+
+    <div id="currentStatus">
+    <p>Current House Search Status: <span id="currentHouseSearch"></span></p>
+    <p>Current Bond Status: <span id="currentBond"></span></p>
+    <p>Current Building Status: <span id="currentBuilding"></span></p>
+</div>
+
+    <script>
+    async function fetchCurrentStatus(userId) {
+    const userDocRef = doc(db, "users", userId);
+    try {
+        const userDoc = await getDoc(userDocRef);
+        if (userDoc.exists()) {
+            const data = userDoc.data();
+            document.getElementById('currentHouseSearch').innerText = data.houseSearch || 'N/A';
+            document.getElementById('currentBond').innerText = data.bond || 'N/A';
+            document.getElementById('currentBuilding').innerText = data.building || 'N/A';
+        } else {
+            console.log("No application status found.");
+        }
+    } catch (error) {
+        console.error("Error fetching application status:", error);
+    }
+}
+
+document.getElementById('userId').addEventListener('change', (e) => {
+    const userId = e.target.value;
+    fetchCurrentStatus(userId);
+});
+<script>
 </body>
 </html>
+
