@@ -119,7 +119,7 @@
     <p>Current Building Status: <span id="currentBuilding"></span></p>
 </div>
 
-    <script>
+   <script>
     async function fetchCurrentStatus(userId) {
     const userDocRef = doc(db, "users", userId);
     try {
@@ -141,7 +141,7 @@ document.getElementById('userId').addEventListener('change', (e) => {
     const userId = e.target.value;
     fetchCurrentStatus(userId);
 });
-<script>
+</script>
 </body>
 </html>
 
