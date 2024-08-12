@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {  
@@ -21,8 +21,12 @@ onAuthStateChanged(auth, async (user) => {
         try {
             const userDoc = await getDoc(userDocRef);
             if (userDoc.exists()) {
-                const status = userDoc.data().applicationStatus;
-                document.getElementById('statusMessage').innerText = `Your application status is: ${status}`;
+                const data = userDoc.data();
+                document.getElementById('statusMessage').innerText = `
+                    House Search: ${data.houseSearch || 'N/A'}
+                    Bond: ${data.bond || 'N/A'}
+                    Building: ${data.building || 'N/A'}
+                `;
             } else {
                 document.getElementById('statusMessage').innerText = "No application status found.";
             }
