@@ -148,6 +148,11 @@ a:hover{
     display: flex;
 }
 
+#accountNav {
+    display: flex;
+    width: 100%;
+}
+
 nav {
     background: #009688;
     width: 300px;
@@ -196,29 +201,6 @@ div#accountNav ul li a {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
 #footera{
     padding: 100px 0 2px;
     background: #efefef;
