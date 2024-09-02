@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>House Description</title>
     <link rel="stylesheet" href="styles.css">
-
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -89,8 +91,21 @@
         <div id="output"></div>
     </div>
     <script src="script.js"></script>
-
     <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
         document.getElementById('houseForm').addEventListener('submit', function(event) {
             event.preventDefault();
         
@@ -98,18 +113,28 @@
             const bedrooms = document.getElementById('bedrooms').value;
             const bathrooms = document.getElementById('bathrooms').value;
             const features = document.getElementById('features').value;
-        
-            const output = `
-                <h2>Your Dream House</h2>
-                <p><strong>House Type:</strong> ${houseType}</p>
-                <p><strong>Number of Bedrooms:</strong> ${bedrooms}</p>
-                <p><strong>Number of Bathrooms:</strong> ${bathrooms}</p>
-                <p><strong>Features:</strong> ${features}</p>
-            `;
-        
-            document.getElementById('output').innerHTML = output;
+
+            // Add data to Firestore
+            db.collection("houses").add({
+                houseType: houseType,
+                bedrooms: bedrooms,
+                bathrooms: bathrooms,
+                features: features
+            })
+            .then((docRef) => {
+                console.log("Document written with ID: ", docRef.id);
+                document.getElementById('output').innerHTML = `
+                    <h2>Your Dream House</h2>
+                    <p><strong>House Type:</strong> ${houseType}</p>
+                    <p><strong>Number of Bedrooms:</strong> ${bedrooms}</p>
+                    <p><strong>Number of Bathrooms:</strong> ${bathrooms}</p>
+                    <p><strong>Features:</strong> ${features}</p>
+                `;
+            })
+            .catch((error) => {
+                console.error("Error adding document: ", error);
+            });
         });
-        
     </script>
 </body>
 </html>
