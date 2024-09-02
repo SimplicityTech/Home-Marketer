@@ -168,7 +168,7 @@ nav ul li {
 
 .account-image {
   height: 80.9vh; /* Match nav height */
-  width: 100px; /* Adjusted width */
+  width: 150px; /* Adjusted width */
   margin-top: 0; /* Removed negative margin */
   padding-left: 20px; /* Added padding */
   float: left; /* Keep image on the left */
@@ -183,7 +183,11 @@ div#accountNav ul li a {
   margin-left: 20px; /* Added margin */
 }
 
-/* Media query adjustments */
+nav ul {
+  display: flex;
+  align-items: center; /* Added to center vertically */
+}
+
 @media screen and (max-width: 770px) {
   nav ul .account-image {
     height: 80.9vh; /* Match nav height */
@@ -192,14 +196,10 @@ div#accountNav ul li a {
   }
 }
 
-/* Footer styles (no changes) */
 #footera {
   padding: 100px 0 2px;
   background: #efefef;
   position: relative;
-  text-align: center;
-  color: #000;
-  padding: 0 20px;
 }
 
 .footer-text {
