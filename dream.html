@@ -149,11 +149,14 @@
 
         document.getElementById('houseForm').addEventListener('submit', function(event) {
             event.preventDefault();
-        
+            console.log("Form submission prevented");
+
             const houseType = document.getElementById('houseType').value;
             const bedrooms = document.getElementById('bedrooms').value;
             const bathrooms = document.getElementById('bathrooms').value;
             const features = document.getElementById('features').value;
+
+            console.log("Form data:", { houseType, bedrooms, bathrooms, features });
 
             // Add data to Firestore
             db.collection("houses").add({
@@ -179,3 +182,4 @@
     </script>
 </body>
 </html>
+
