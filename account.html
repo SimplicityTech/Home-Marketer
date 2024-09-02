@@ -37,21 +37,22 @@
 </section>
 <script>
     const express = require('express');
-const session = require('express-session');
+    const session = require('express-session');
 
-const app = express();
-app.use(session({
-  secret: 'your_secret_key',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
-}));
+    const app = express();
+    app.use(session({
+      secret: 'your_secret_key',
+      resave: false,
+      saveUninitialized: true,
+      cookie: { secure: true }
+    }));
 
-app.get('/', (req, res) => {
-  req.session.visits = req.session.visits ? req.session.visits + 1 : 1;
-  res.send(`You have visited this page ${req.session.visits} times`);
-});
+    app.get('/', (req, res) => {
+      req.session.visits = req.session.visits ? req.session.visits + 1 : 1;
+      res.send(`You have visited this page ${req.session.visits} times`);
+    });
 
 </script>
 </body>
 </html>
+
