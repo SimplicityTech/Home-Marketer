@@ -5,9 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>House Description</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+    <script type="module">
+        // Import Firebase modules for version 9+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
+
+        // Firebase configuration
+        const firebaseConfig = {  
+            apiKey: "AIzaSyABbx6yhhAN0DAhx7FjPRPU-vKyRJUWtR8",
+            authDomain: "www.homemarketer.co.za",
+            projectId: "registration-homemarketer",
+            storageBucket: "registration-homemarketer.appspot.com",
+            messagingSenderId: "764247926799",
+            appId: "1:764247926799:web:838d65e930acc8ae849b7a"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Form submission event listener
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('houseForm').addEventListener('submit', async function(event) {
+                event.preventDefault(); // Prevent form from refreshing
+
+                const houseType = document.getElementById('houseType').value;
+                const bedrooms = document.getElementById('bedrooms').value;
+                const bathrooms = document.getElementById('bathrooms').value;
+                const features = document.getElementById('features').value;
+
+                try {
+                    // Add document to Firestore
+                    const docRef = await addDoc(collection(db, "houses"), {
+                        houseType: houseType,
+                        bedrooms: bedrooms,
+                        bathrooms: bathrooms,
+                        features: features,
+                        timestamp: new Date()
+                    });
+
+                    console.log("Document written with ID: ", docRef.id);
+                    // Display confirmation to the user
+                    document.getElementById('output').innerHTML = `
+                        <h2>Your Dream House</h2>
+                        <p><strong>House Type:</strong> ${houseType}</p>
+                        <p><strong>Number of Bedrooms:</strong> ${bedrooms}</p>
+                        <p><strong>Number of Bathrooms:</strong> ${bathrooms}</p>
+                        <p><strong>Features:</strong> ${features}</p>
+                    `;
+                } catch (error) {
+                    console.error("Error adding document: ", error);
+                    alert("Error submitting your data. Please try again.");
+                }
+            });
+        });
+    </script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -132,53 +184,5 @@
             </ul>
         </nav>
     </footer>
-    <script>
-        // Your web app's Firebase configuration
-        const firebaseConfig = {  
-            apiKey: "AIzaSyABbx6yhhAN0DAhx7FjPRPU-vKyRJUWtR8",
-            authDomain: "www.homemarketer.co.za",
-            projectId: "registration-homemarketer",
-            storageBucket: "registration-homemarketer.appspot.com",
-            messagingSenderId: "764247926799",
-            appId: "1:764247926799:web:838d65e930acc8ae849b7a"
-        };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-
-        document.getElementById('houseForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            console.log("Form submission prevented");
-
-            const houseType = document.getElementById('houseType').value;
-            const bedrooms = document.getElementById('bedrooms').value;
-            const bathrooms = document.getElementById('bathrooms').value;
-            const features = document.getElementById('features').value;
-
-            console.log("Form data:", { houseType, bedrooms, bathrooms, features });
-
-            // Add data to Firestore
-            db.collection("houses").add({
-                houseType: houseType,
-                bedrooms: bedrooms,
-                bathrooms: bathrooms,
-                features: features
-            })
-            .then((docRef) => {
-                console.log("Document written with ID: ", docRef.id);
-                document.getElementById('output').innerHTML = `
-                    <h2>Your Dream House</h2>
-                    <p><strong>House Type:</strong> ${houseType}</p>
-                    <p><strong>Number of Bedrooms:</strong> ${bedrooms}</p>
-                    <p><strong>Number of Bathrooms:</strong> ${bathrooms}</p>
-                    <p><strong>Features:</strong> ${features}</p>
-                `;
-            })
-            .catch((error) => {
-                console.error("Error adding document: ", error);
-            });
-        });
-    </script>
 </body>
 </html>
