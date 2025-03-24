@@ -107,54 +107,56 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+// Fallback for Firebase initialization
+if (!auth) {
+    alert("Firebase Authentication failed to initialize. Check your Firebase configuration.");
+}
+
 document.getElementById('registrationForm').addEventListener('submit', submitForm);
 
 async function submitForm(e) {
-  e.preventDefault();
+    e.preventDefault();
 
-  const fullName = getElementVal('fullname');
-  const emailid = getElementVal('Email');
-  const phoneNumber = getElementVal('phoneNumber');
-  const createPassword = getElementVal('CreatePassword');
-  const confirmPassword = getElementVal('confirmPassword');
+    const fullName = getElementVal('fullname');
+    const emailid = getElementVal('Email');
+    const phoneNumber = getElementVal('phoneNumber');
+    const createPassword = getElementVal('CreatePassword');
+    const confirmPassword = getElementVal('confirmPassword');
 
-  console.log("Form Data:", { fullName, emailid, phoneNumber, createPassword, confirmPassword });
+    console.log("Form Data:", { fullName, emailid, phoneNumber, createPassword, confirmPassword });
 
-  if (createPassword !== confirmPassword) {
-    alert("Passwords do not match.");
-    return;
-  }
+    if (createPassword !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+    }
 
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, emailid, createPassword);
-    const user = userCredential.user;
-    console.log("User created:", user);
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, emailid, createPassword);
+        const user = userCredential.user;
+        console.log("User created:", user);
 
-    // Save user data to Firestore
-    await setDoc(doc(db, "users", user.uid), {
-      fullName,
-      emailid,
-      phoneNumber
-    });
+        // Save user data to Firestore
+        await setDoc(doc(db, "users", user.uid), {
+            fullName,
+            emailid,
+            phoneNumber
+        });
 
-    alert("User registered successfully!");
+        alert("User registered successfully!");
 
-    // Redirect to account page
-    window.location.href = 'account.html';
-  } catch (error) {
-    console.error("Error creating user:", error);
-    alert("Error creating user: " + error.message);
-  }
+        // Redirect to account page
+        window.location.href = 'account.html';
+    } catch (error) {
+        console.error("Error creating user:", error);
+        alert("Error creating user: " + error.message);
+    }
 }
 
 function getElementVal(id) {
-  return document.getElementById(id).value;
+    return document.getElementById(id).value;
 }
+
     </script>
-
     
-    
-
-
 </Body>
 </html>
