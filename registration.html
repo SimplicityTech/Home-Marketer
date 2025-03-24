@@ -99,40 +99,42 @@
         const db = getFirestore(app);
 
         document.getElementById('registrationForm').addEventListener('submit', async (e) => {
-            e.preventDefault(); // Prevent page refresh
+    e.preventDefault(); // Stop the page from refreshing
 
-            const fullName = document.getElementById('fullname').value;
-            const emailid = document.getElementById('Email').value;
-            const phoneNumber = document.getElementById('phoneNumber').value;
-            const createPassword = document.getElementById('CreatePassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
+    const fullName = document.getElementById('fullname').value;
+    const emailid = document.getElementById('Email').value;
+    const phoneNumber = document.getElementById('phoneNumber').value;
+    const createPassword = document.getElementById('CreatePassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
 
-            // Check if passwords match
-            if (createPassword !== confirmPassword) {
-                alert("Passwords do not match.");
-                return;
-            }
+    if (createPassword !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+    }
 
-            try {
-                // Register the user with Firebase Authentication
-                const userCredential = await createUserWithEmailAndPassword(auth, emailid, createPassword);
-                const user = userCredential.user;
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, emailid, createPassword);
+        const user = userCredential.user;
 
-                // Save additional user details to Firestore
-                await setDoc(doc(db, "users", user.uid), {
-                    fullName,
-                    emailid,
-                    phoneNumber
-                });
+        // Save additional user details to Firestore
+        await setDoc(doc(db, "users", user.uid), {
+            fullName,
+            emailid,
+            phoneNumber
+        });
 
-                alert("User registered successfully!");
-                document.getElementById('SignUpMessage').style.display = 'block';
+        alert("User registered successfully!");
 
-                // Redirect to account page
-                window.location.href = 'account.html';
-            } catch (error) {
-                console.error("Error creating user:", error);
-                alert("Error creating user: " + error.message);
+        // Redirect to account page
+        window.location.href = 'account.html';
+    } catch (error) {
+        console.error("Error creating user:", error);
+        alert("Error creating user: " + error.message);
+    }
+});
+
+
+
             }
         });
     </script>
