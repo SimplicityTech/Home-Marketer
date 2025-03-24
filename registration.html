@@ -115,8 +115,9 @@ if (!auth) {
 document.getElementById('registrationForm').addEventListener('submit', submitForm);
 
 async function submitForm(e) {
-    e.preventDefault();
-
+    e.preventDefault(); // Stops the form from submitting and refreshing the page
+    // Rest of the code
+}
     const fullName = getElementVal('fullname');
     const emailid = getElementVal('Email');
     const phoneNumber = getElementVal('phoneNumber');
