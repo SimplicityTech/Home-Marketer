@@ -3,161 +3,138 @@
 <head>
     <title>Registration Form</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <li rel="index" href="account.html"></li>
     <link rel="stylesheet" href="style.css">
     <script type="module" src="firebaseauth.js"></script>
-
     <style>
-        /* Add your CSS styles here */
         body {
-          font-family: Arial, sans-serif;
+            font-family: Arial, sans-serif;
         }
-        #registrationForm{
-          margin-top: 5%;
+
+        #registrationForm {
+            margin-top: 5%;
         }
+
         .form-container, .account-details {
-          width: 300px;
-          margin: auto;
-          padding: 20px;
-          display: none; /* Hide all sections by default */
+            width: 300px;
+            margin: auto;
+            padding: 20px;
+            display: none;
         }
+
         .visible {
-          display: block; /* Show section when needed */
+            display: block;
         }
+
         input[type="text"], input[type="email"], input[type="password"] {
-      width: 100%;
-          padding: 10px;
-          margin: 10px 0;
-          border: 1px solid #ddd;
-          box-sizing: border-box;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
         }
+
         input[type="submit"], .logout-button {
-          width: 100%;
-          padding: 10px;
-          background-color: #009688;
-          color: white;
-          border: none;
-          cursor: pointer;
+            width: 100%;
+            padding: 10px;
+            background-color: #009688;
+            color: white;
+            border: none;
+            cursor: pointer;
         }
+
         input[type="submit"]:hover, .logout-button:hover {
-          background-color: midnightblue;
-      }
-      </style>
+            background-color: midnightblue;
+        }
+    </style>
 </head>
-<Body>
-
-<!--Registration--->
+<body>
     <header>
-      <img src="home-marketer2.png" alt="logo" class="logo"><br>
+        <img src="home-marketer2.png" alt="logo" class="logo"><br>
     </header>
+
     <form id="registrationForm">
-      <div class="form signup">
-        <span class="title">REGISTRATION</span>
-    
-        <div id="SignUpMessage" class="messageDiv" style="display: none;">Account created successfully</div>
-    
-        <div class="input-field">
-          <input type="text" placeholder="Full name" id="fullname" required>
-          <i class="uil uil-user icon"></i>
+        <div class="form signup">
+            <span class="title">REGISTRATION</span>
+            <div id="SignUpMessage" class="messageDiv" style="display: none;">Account created successfully</div>
+            <div class="input-field">
+                <input type="text" placeholder="Full name" id="fullname" required>
+            </div>
+            <div class="input-field">
+                <input type="email" placeholder="Email" id="Email" required>
+            </div>
+            <div class="input-field">
+                <input type="tel" placeholder="Phone number" id="phoneNumber" required>
+            </div>
+            <div class="input-field">
+                <input type="password" placeholder="Create password" id="CreatePassword" required>
+            </div>
+            <div class="input-field">
+                <input type="password" placeholder="Confirm password" id="confirmPassword" required>
+            </div>
+            <div class="input-field button">
+                <input type="submit" value="Submit">
+            </div>
         </div>
-        <div class="input-field">
-          <input type="email" placeholder="Email" id="Email" required>
-          <i class="uil uil-envelop icon"></i>
-        </div>
-        <div class="input-field">
-          <input type="tel" placeholder="Phone number" id="phoneNumber" required>
-          <i class="uil uil-phone icon"></i>
-        </div>
-        <div class="input-field">
-          <input type="password" placeholder="Create password" id="CreatePassword" required>
-          <i class="uil uil-lock icon"></i>
-          <i class="uil uil-eye-slash showHidePw"></i>
-        </div> 
-        <div class="input-field">
-          <input type="password" placeholder="Confirm password" id="confirmPassword" required>
-          <i class="uil uil-lock icon"></i>
-          <i class="uil uil-eye-slash showHidePw"></i>
-        </div>
-        <div class="input-field button">
-          <input type="submit" value="Submit">
-        </div>
-      </div>
     </form>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.12.2/firebase.js"></script>
-    <script type="module" src="firebaseauth.js"></script>
 
-    <script>
-        // Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    <script type="module">
+        // Import Firebase functions
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// Your web app's Firebase configuration
-const firebaseConfig = {  
-  apiKey: "AIzaSyABbx6yhhAN0DAhx7FjPRPU-vKyRJUWtR8",
-  authDomain: "www.homemarketer.co.za",
-  projectId: "registration-homemarketer",
-  storageBucket: "registration-homemarketer.appspot.com",
-  messagingSenderId: "764247926799",
-  appId: "1:764247926799:web:838d65e930acc8ae849b7a"
-};
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyABbx6yhhAN0DAhx7FjPRPU-vKyRJUWtR8",
+            authDomain: "www.homemarketer.co.za",
+            projectId: "registration-homemarketer",
+            storageBucket: "registration-homemarketer.appspot.com",
+            messagingSenderId: "764247926799",
+            appId: "1:764247926799:web:838d65e930acc8ae849b7a"
+        };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
 
-// Fallback for Firebase initialization
-if (!auth) {
-    alert("Firebase Authentication failed to initialize. Check your Firebase configuration.");
-}
+        document.getElementById('registrationForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevent page refresh
 
-document.getElementById('registrationForm').addEventListener('submit', submitForm);
+            const fullName = document.getElementById('fullname').value;
+            const emailid = document.getElementById('Email').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const createPassword = document.getElementById('CreatePassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
 
-async function submitForm(e) {
-    e.preventDefault(); // Stops the form from submitting and refreshing the page
-    // Rest of the code
-}
-    const fullName = getElementVal('fullname');
-    const emailid = getElementVal('Email');
-    const phoneNumber = getElementVal('phoneNumber');
-    const createPassword = getElementVal('CreatePassword');
-    const confirmPassword = getElementVal('confirmPassword');
+            // Check if passwords match
+            if (createPassword !== confirmPassword) {
+                alert("Passwords do not match.");
+                return;
+            }
 
-    console.log("Form Data:", { fullName, emailid, phoneNumber, createPassword, confirmPassword });
+            try {
+                // Register the user with Firebase Authentication
+                const userCredential = await createUserWithEmailAndPassword(auth, emailid, createPassword);
+                const user = userCredential.user;
 
-    if (createPassword !== confirmPassword) {
-        alert("Passwords do not match.");
-        return;
-    }
+                // Save additional user details to Firestore
+                await setDoc(doc(db, "users", user.uid), {
+                    fullName,
+                    emailid,
+                    phoneNumber
+                });
 
-    try {
-        const userCredential = await createUserWithEmailAndPassword(auth, emailid, createPassword);
-        const user = userCredential.user;
-        console.log("User created:", user);
+                alert("User registered successfully!");
+                document.getElementById('SignUpMessage').style.display = 'block';
 
-        // Save user data to Firestore
-        await setDoc(doc(db, "users", user.uid), {
-            fullName,
-            emailid,
-            phoneNumber
+                // Redirect to account page
+                window.location.href = 'account.html';
+            } catch (error) {
+                console.error("Error creating user:", error);
+                alert("Error creating user: " + error.message);
+            }
         });
-
-        alert("User registered successfully!");
-
-        // Redirect to account page
-        window.location.href = 'account.html';
-    } catch (error) {
-        console.error("Error creating user:", error);
-        alert("Error creating user: " + error.message);
-    }
-}
-
-function getElementVal(id) {
-    return document.getElementById(id).value;
-}
-
     </script>
-    
-</Body>
+</body>
 </html>
