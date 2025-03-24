@@ -6,55 +6,98 @@
     <link rel="stylesheet" href="style.css">
     <script type="module" src="firebaseauth.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
 
-        header img.logo {
-            display: block;
-            margin: 0 auto 20px;
-            max-width: 200px;
-        }
+header img.logo {
+    display: block;
+    margin: 0 auto 20px; /* Centers the logo and adds spacing below it */
+    max-width: 200px; /* Ensure logo adjusts to screen size */
+    height: auto;
+}
 
-        #registrationForm {
-            margin-top: 50px;
-            width: 100%;
-            max-width: 400px;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            margin-left: auto;
-            margin-right: auto;
-        }
+#registrationForm {
+    margin-top: 50px;
+    width: 100%;
+    max-width: 400px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-left: auto;
+    margin-right: auto;
+}
 
-        .input-field input[type="text"],
-        .input-field input[type="email"],
-        .input-field input[type="password"],
-        .input-field input[type="tel"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
+/* Input fields styling */
+.input-field input[type="text"],
+.input-field input[type="email"],
+.input-field input[type="password"],
+.input-field input[type="tel"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
 
-        .input-field input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #009688;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+.input-field input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #009688;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-        .input-field input[type="submit"]:hover {
-            background-color: midnightblue;
-        }
+.input-field input[type="submit"]:hover {
+    background-color: midnightblue;
+}
+
+/* Responsive Design: Screens below 768px (tablets and phones) */
+@media screen and (max-width: 768px) {
+    header img.logo {
+        max-width: 150px; /* Smaller logo for smaller screens */
+        margin-bottom: 10px;
+    }
+
+    #registrationForm {
+        padding: 15px; /* Reduce padding for smaller screens */
+        margin-top: 20px; /* Adjust spacing */
+    }
+
+    .input-field input[type="text"],
+    .input-field input[type="email"],
+    .input-field input[type="password"],
+    .input-field input[type="tel"] {
+        font-size: 14px; /* Adjust font size */
+    }
+
+    .input-field input[type="submit"] {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+/* Extra Small Screens (Phones below 480px) */
+@media screen and (max-width: 480px) {
+    header img.logo {
+        max-width: 120px; /* Smaller logo for very small screens */
+    }
+
+    #registrationForm {
+        padding: 10px; /* Further reduce padding */
+    }
+
+    .input-field input[type="submit"] {
+        padding: 6px;
+    }
+} 
+        
     </style>
 </head>
 <body>
