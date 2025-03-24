@@ -8,48 +8,58 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header img.logo {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 200px;
         }
 
         #registrationForm {
-            margin-top: 5%;
-        }
-
-        .form-container, .account-details {
-            width: 300px;
-            margin: auto;
+            margin-top: 50px;
+            width: 100%;
+            max-width: 400px;
+            background-color: #ffffff;
             padding: 20px;
-            display: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .visible {
-            display: block;
-        }
-
-        input[type="text"], input[type="email"], input[type="password"] {
+        .input-field input[type="text"],
+        .input-field input[type="email"],
+        .input-field input[type="password"],
+        .input-field input[type="tel"] {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ddd;
-            box-sizing: border-box;
+            border-radius: 5px;
         }
 
-        input[type="submit"], .logout-button {
+        .input-field input[type="submit"] {
             width: 100%;
             padding: 10px;
             background-color: #009688;
             color: white;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
         }
 
-        input[type="submit"]:hover, .logout-button:hover {
+        .input-field input[type="submit"]:hover {
             background-color: midnightblue;
         }
     </style>
 </head>
 <body>
     <header>
-        <img src="home-marketer2.png" alt="logo" class="logo"><br>
+        <img src="home-marketer2.png" alt="logo" class="logo">
     </header>
 
     <form id="registrationForm">
@@ -78,12 +88,10 @@
     </form>
 
     <script type="module">
-        // Import Firebase functions
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
         import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-        // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyABbx6yhhAN0DAhx7FjPRPU-vKyRJUWtR8",
             authDomain: "www.homemarketer.co.za",
@@ -93,50 +101,42 @@
             appId: "1:764247926799:web:838d65e930acc8ae849b7a"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
 
         document.getElementById('registrationForm').addEventListener('submit', async (e) => {
-    e.preventDefault(); // Stop the page from refreshing
+            e.preventDefault();
+            const fullName = document.getElementById('fullname').value;
+            const emailid = document.getElementById('Email').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const createPassword = document.getElementById('CreatePassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
 
-    const fullName = document.getElementById('fullname').value;
-    const emailid = document.getElementById('Email').value;
-    const phoneNumber = document.getElementById('phoneNumber').value;
-    const createPassword = document.getElementById('CreatePassword').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
+            if (createPassword !== confirmPassword) {
+                alert("Passwords do not match.");
+                return;
+            }
 
-    if (createPassword !== confirmPassword) {
-        alert("Passwords do not match.");
-        return;
-    }
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, emailid, createPassword);
+                const user = userCredential.user;
 
-    try {
-        const userCredential = await createUserWithEmailAndPassword(auth, emailid, createPassword);
-        const user = userCredential.user;
+                await setDoc(doc(db, "users", user.uid), {
+                    fullName,
+                    emailid,
+                    phoneNumber
+                });
 
-        // Save additional user details to Firestore
-        await setDoc(doc(db, "users", user.uid), {
-            fullName,
-            emailid,
-            phoneNumber
-        });
-
-        alert("User registered successfully!");
-
-        // Redirect to account page
-        window.location.href = 'account.html';
-    } catch (error) {
-        console.error("Error creating user:", error);
-        alert("Error creating user: " + error.message);
-    }
-});
-
-
-
+                alert("User registered successfully!");
+                document.getElementById('SignUpMessage').style.display = 'block';
+                window.location.href = 'account.html';
+            } catch (error) {
+                console.error("Error creating user:", error);
+                alert("Error creating user: " + error.message);
             }
         });
     </script>
 </body>
 </html>
+
